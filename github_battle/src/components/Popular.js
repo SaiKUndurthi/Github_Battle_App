@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import '../index.css';
+import api from '../util/api';
 
 function EachLanguage(props){
   return(
@@ -36,13 +37,19 @@ class Popular extends Component{
   constructor(props){
     super(props);
     this.state = {
-      selectedLanguage: 'All'
+      selectedLanguage: 'All',
+      repos: null
     };
     this.updateLanguage = this.updateLanguage.bind(this);
   }
 
+  componentDidMount(){
+    api.fetchPopularRepos('Java').then(function(response){
+      console.log(response);
+    })
+  }
+
   updateLanguage(lang){
-    console.log(lang)
     this.setState(function(){
       return {
         selectedLanguage: lang,
